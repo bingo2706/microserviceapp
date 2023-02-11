@@ -13,6 +13,8 @@ import com.tanthanh.bookservice.command.data.BookRepository;
 import com.tanthanh.bookservice.query.model.BookResponseModel;
 import com.tanthanh.bookservice.query.queries.GetAllBooksQuery;
 import com.tanthanh.bookservice.query.queries.GetBookQuery;
+import com.tanthanh.commonservice.model.BookResponseCommonModel;
+import com.tanthanh.commonservice.query.GetDetailsBookQuery;
 
 @Component
 public class BookProjection {
@@ -37,4 +39,12 @@ public class BookProjection {
 		 });
 		 return listbook;
 	 }
+	 @QueryHandler
+	    public BookResponseCommonModel handle(GetDetailsBookQuery getDetailsBookQuery) {
+		 BookResponseCommonModel model = new BookResponseCommonModel();
+		 Book book = bookRepository.getById(getDetailsBookQuery.getBookId());
+	      BeanUtils.copyProperties(book, model);
+
+	        return model;
+	    }
 }

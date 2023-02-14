@@ -30,6 +30,11 @@ public class EmployeeEventsHandler {
 	}
 	@EventHandler
 	public void on(EmployeeDeletedEvent event) {
-		employeeRepository.deleteById(event.getEmployeeId());
+		try {
+			employeeRepository.deleteById(event.getEmployeeId());
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+		}
+		
 	}
 }

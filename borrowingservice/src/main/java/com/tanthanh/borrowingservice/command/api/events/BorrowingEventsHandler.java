@@ -7,11 +7,16 @@ import org.springframework.stereotype.Component;
 
 import com.tanthanh.borrowingservice.command.api.data.BorrowRepository;
 import com.tanthanh.borrowingservice.command.api.data.Borrowing;
+import com.tanthanh.borrowingservice.command.api.model.Message;
+import com.tanthanh.borrowingservice.command.api.service.BorrowService;
 
 @Component
 public class BorrowingEventsHandler {
 	@Autowired
 	private BorrowRepository borrowRepository;
+	
+	@Autowired
+	private BorrowService borrowService;
 	
 	@EventHandler
 	public void on(BorrowCreatedEvent event) {
@@ -28,5 +33,16 @@ public class BorrowingEventsHandler {
 		}
 		else return;
 		
+	}
+	@EventHandler
+	public void on(BorrowSendMessageEvent event) {
+		Message message = new Message(event.getEmployeeId(), event.getMessage());
+		borrowService.sendMessage(message);
+	}
+	@EventHandler
+	public void on(BorrowingUpdateBookReturnEvent event) {
+		Borrowing model = borrowRepository.findByEmployeeIdAndBookIdAndReturnDateIsNull(event.getEmployee(), event.getBookId());
+		model.setReturnDate(event.getReturnDate());
+		borrowRepository.save(model);
 	}
 }

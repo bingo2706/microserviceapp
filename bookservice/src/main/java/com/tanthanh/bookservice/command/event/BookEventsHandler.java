@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.tanthanh.bookservice.command.data.Book;
 import com.tanthanh.bookservice.command.data.BookRepository;
+import com.tanthanh.commonservice.event.BookRollBackStatusEvent;
 import com.tanthanh.commonservice.event.BookUpdateStatusEvent;
 
 @Component
@@ -36,6 +37,12 @@ public class BookEventsHandler {
     }
 	@EventHandler
 	public void on(BookUpdateStatusEvent event) {
+		Book book = bookRepository.getById(event.getBookId());
+		book.setIsReady(event.getIsReady());
+		bookRepository.save(book);
+	}
+	@EventHandler
+	public void on(BookRollBackStatusEvent event) {
 		Book book = bookRepository.getById(event.getBookId());
 		book.setIsReady(event.getIsReady());
 		bookRepository.save(book);

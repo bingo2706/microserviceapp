@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tanthanh.commonservice.model.EmployeeResponseCommonModel;
+import com.tanthanh.commonservice.query.GetDetailsEmployeeQuery;
 import com.tanthanh.employeeservice.command.data.Employee;
 import com.tanthanh.employeeservice.command.data.EmployeeRepository;
 import com.tanthanh.employeeservice.query.model.EmployeeReponseModel;
@@ -38,4 +40,12 @@ public class EmployeeProjection {
 		});
 		return listModel;
 	}
+	@QueryHandler
+    public EmployeeResponseCommonModel handle(GetDetailsEmployeeQuery getDetailsEmployeeQuery) {
+		EmployeeResponseCommonModel model = new EmployeeResponseCommonModel();
+	 Employee employee = employeeRepository.getById(getDetailsEmployeeQuery.getEmployeeId());
+      BeanUtils.copyProperties(employee, model);
+
+        return model;
+    }
 }

@@ -11,8 +11,12 @@ import org.springframework.beans.BeanUtils;
 
 import com.tanthanh.borrowingservice.command.api.command.CreateBorrowCommand;
 import com.tanthanh.borrowingservice.command.api.command.DeleteBorrowCommand;
+import com.tanthanh.borrowingservice.command.api.command.SendMessageCommand;
+import com.tanthanh.borrowingservice.command.api.command.UpdateBookReturnCommand;
 import com.tanthanh.borrowingservice.command.api.events.BorrowCreatedEvent;
 import com.tanthanh.borrowingservice.command.api.events.BorrowDeletedEvent;
+import com.tanthanh.borrowingservice.command.api.events.BorrowSendMessageEvent;
+import com.tanthanh.borrowingservice.command.api.events.BorrowingUpdateBookReturnEvent;
 
 @Aggregate
 public class BorrowAggregate {
@@ -50,5 +54,30 @@ public class BorrowAggregate {
 	@EventSourcingHandler
 	public void on(BorrowDeletedEvent event) {
 		this.id = event.getId();
+	}
+	@CommandHandler
+	public void handle(SendMessageCommand command) {
+		BorrowSendMessageEvent event = new BorrowSendMessageEvent();
+		BeanUtils.copyProperties(command, event);
+		AggregateLifecycle.apply(event);
+	}
+	@EventSourcingHandler
+	public void on(BorrowSendMessageEvent event) {
+		this.id = event.getId();
+		this.message = event.getMessage();
+		this.employeeId = event.getEmployeeId();
+	}
+	@CommandHandler
+	public void handle(UpdateBookReturnCommand command) {
+		BorrowingUpdateBookReturnEvent event = new BorrowingUpdateBookReturnEvent();
+		BeanUtils.copyProperties(command, event);
+		AggregateLifecycle.apply(event);
+	}
+	@EventSourcingHandler
+	public void on(BorrowingUpdateBookReturnEvent event) {
+		
+		this.returnDate = event.getReturnDate();
+		this.bookId = event.getBookId();
+		this.employeeId = event.getEmployee();
 	}
 }

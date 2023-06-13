@@ -26,7 +26,6 @@ public class UserService {
 	
 	
 	public List<User> getAllUser() {
-		// TODO Auto-generated method stub
 		return userRepository.findAll();
 	}
 	

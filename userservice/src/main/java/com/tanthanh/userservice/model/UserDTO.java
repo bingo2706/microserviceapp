@@ -44,5 +44,16 @@ public class UserDTO {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
+
+	public UserDTO(Long id, String username, String password, String employeeId, String token, String refreshtoken) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.employeeId = employeeId;
+		this.token = token;
+		this.refreshtoken = refreshtoken;
+	}
+
+	public UserDTO() {
+	}
 }

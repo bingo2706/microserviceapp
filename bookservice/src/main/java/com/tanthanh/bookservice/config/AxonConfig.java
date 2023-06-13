@@ -8,13 +8,13 @@ import com.thoughtworks.xstream.XStream;
 @Configuration
 public class AxonConfig {
  
-    @Bean
-    public XStream xStream() {
-        XStream xStream = new XStream();
-      
-        xStream.allowTypesByWildcard(new String[] {
-                "com.tanthanh.**"
-        });
-        return xStream;
-    }
+//    @Bean
+//    public XStream xStream() {
+//        XStream xStream = new XStream();
+//
+//        xStream.allowTypesByWildcard(new String[] {
+//                "com.tanthanh.**"
+//        });
+//        return xStream;
+//    }
 }

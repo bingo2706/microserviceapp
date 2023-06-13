@@ -15,7 +15,14 @@ public class User {
 	private String username;
 	private String password;
 	private String employeeId;
-	
+
+	public User(Long id, String username, String password, String employeeId) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.employeeId = employeeId;
+	}
+
 	public Long getId() {
 		return id;
 	}

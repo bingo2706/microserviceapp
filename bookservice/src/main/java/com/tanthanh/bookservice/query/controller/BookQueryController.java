@@ -2,8 +2,10 @@ package com.tanthanh.bookservice.query.controller;
 
 import java.util.List;
 
+import com.tanthanh.bookservice.BookserviceApplication;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,9 @@ public class BookQueryController {
 
 	@Autowired 
 	private  QueryGateway queryGateway;
-	
+
+	private Logger logger =org.slf4j.LoggerFactory.getLogger(BookserviceApplication.class);
+
 	@GetMapping("/{bookId}")
     public BookResponseModel getBookDetail(@PathVariable String bookId) {
         GetBookQuery getBooksQuery = new GetBookQuery();
@@ -38,6 +42,7 @@ public class BookQueryController {
 		GetAllBooksQuery getAllBooksQuery = new GetAllBooksQuery();
 		List<BookResponseModel> list = queryGateway.query(getAllBooksQuery, ResponseTypes.multipleInstancesOf(BookResponseModel.class))
 				.join();
+		logger.info("Danh sach Book "+list.toString());
 		return list;
 	}
 }

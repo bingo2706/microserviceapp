@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @SpringBootApplication
 @RestController
 @EnableBinding(Sink.class)
-public class NotificationserviceApplication {
+public class  NotificationserviceApplication {
 	private Logger logger =org.slf4j.LoggerFactory.getLogger(NotificationserviceApplication.class);
 	
 	@Autowired

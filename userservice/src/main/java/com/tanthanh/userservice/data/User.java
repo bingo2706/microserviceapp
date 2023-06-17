@@ -55,10 +55,5 @@ public class User {
 		this.employeeId = employeeId;
 	}
 
-	public User(Long id, String username, String password, String employeeId) {
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.employeeId = employeeId;
-	}
+
 }

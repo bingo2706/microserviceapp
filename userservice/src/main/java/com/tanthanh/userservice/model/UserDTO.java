@@ -53,7 +53,7 @@ public class UserDTO {
 		this.token = token;
 		this.refreshtoken = refreshtoken;
 	}
+	public UserDTO(){
 
-	public UserDTO() {
 	}
 }

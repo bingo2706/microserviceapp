@@ -8,22 +8,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Any;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 class UserControllerTest {
-
     @Mock
     private UserService userService;
 
@@ -32,13 +30,14 @@ class UserControllerTest {
 
     private User user;
     private UserDTO userDTO;
+
     @BeforeEach
     public void setUp(){
         user = new User(1L,"dev@gmail.com","123456","employeeID");
         userDTO = new UserDTO(1L,"dev@gmail.com","123456","employeeID","token","refresh");
         ReflectionTestUtils.setField(userController,"userService",userService);
-
     }
+
     @Test
     void getAllUser(){
         List<User> users = new ArrayList<>();

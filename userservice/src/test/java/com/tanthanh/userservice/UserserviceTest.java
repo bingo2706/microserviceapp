@@ -17,20 +17,18 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-class UserserviceTest {
+class UserServiceTest {
     @Mock
     private UserRepository userRepository;
+
     @Mock
     private PasswordEncoder passwordEncoder;
-
     @InjectMocks
     private UserService userService;
-
     private User user;
     private UserDTO userDTO;
     @BeforeEach
@@ -49,25 +47,25 @@ class UserserviceTest {
     }
     @Test
     void saveUser(){
-        when(passwordEncoder.encode(user.getPassword())).thenReturn("123");
+        when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
         when(userRepository.save(user)).thenReturn(user);
         Assertions.assertEquals(user,userService.saveUser(user));
     }
     @Test
-    void loginWithUserNotNullAndMatchPassword(){
-        when(userRepository.findByUsername(anyString())).thenReturn(user);
+    void login(){
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
         when(passwordEncoder.matches(anyString(),anyString())).thenReturn(true);
         Assertions.assertNotNull(userService.login(user.getUsername(),user.getPassword()));
     }
     @Test
-    void loginWithUserNotNullAndNotMatchPassword(){
-        when(userRepository.findByUsername(anyString())).thenReturn(user);
+    void loginWithPasswordNotMatch(){
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
         when(passwordEncoder.matches(anyString(),anyString())).thenReturn(false);
         Assertions.assertNotNull(userService.login(user.getUsername(),user.getPassword()));
     }
     @Test
-    void loginWithUserNull(){
-        when(userRepository.findByUsername(anyString())).thenReturn(null);
+    void loginWithNotFoundUser(){
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(null);
         Assertions.assertNotNull(userService.login(user.getUsername(),user.getPassword()));
     }
 }

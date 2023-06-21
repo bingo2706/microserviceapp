@@ -1,10 +1,6 @@
 package com.tanthanh.userservice.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -14,7 +10,11 @@ public class User {
 	private Long id;
 	private String username;
 	private String password;
+	@Column(name = "employee_id")
 	private String employeeId;
+
+	public User() {
+	}
 
 	public User(Long id, String username, String password, String employeeId) {
 		this.id = id;

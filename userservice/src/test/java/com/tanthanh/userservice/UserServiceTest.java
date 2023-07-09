@@ -10,10 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-<<<<<<< HEAD
-import org.springframework.boot.test.context.SpringBootTest;
-=======
->>>>>>> 5f05f50687f0a5a3808e03e77444ea9a5aae4be6
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -21,10 +17,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
 import static org.mockito.ArgumentMatchers.any;
-=======
->>>>>>> 5f05f50687f0a5a3808e03e77444ea9a5aae4be6
+
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -54,15 +48,10 @@ class UserServiceTest {
         Assertions.assertEquals(users,userService.getAllUser());
     }
     @Test
-    void saveUser(){
+    void saveUser() {
         when(passwordEncoder.encode(user.getPassword())).thenReturn(user.getPassword());
-<<<<<<< HEAD
         when(userRepository.save(any(User.class))).thenReturn(user);
-        Assertions.assertEquals(userDTO.getId(),userService.saveUser(userDTO).getId());
-=======
-        when(userRepository.save(user)).thenReturn(user);
-        Assertions.assertEquals(user,userService.saveUser(user));
->>>>>>> 5f05f50687f0a5a3808e03e77444ea9a5aae4be6
+        Assertions.assertEquals(userDTO.getId(), userService.saveUser(userDTO).getId());
     }
     @Test
     void login(){

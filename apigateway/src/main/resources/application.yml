@@ -1,0 +1,36 @@
+server:
+  port: 9000
+  
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: bookservice
+          uri: http://localhost:9001
+          predicates:
+            - Path=/api/v1/books/**
+          filters:
+            - AuthFilter
+        - id: employeeservice
+          uri: http://localhost:9002
+          predicates:
+            - Path=/api/v1/employees/**
+          filters:
+            - AuthFilter     
+        - id: borrowservice
+          uri: http://localhost:9003
+          predicates:
+            - Path=/api/v1/borrowing/**
+          filters:
+            - AuthFilter  
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+              allowedOrigins: "*"
+              allowedMethods: "*"
+              allowedHeaders: "*"
+

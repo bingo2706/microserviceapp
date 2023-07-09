@@ -1,5 +1,6 @@
 package com.tanthanh.bookservice.command.data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,9 +9,11 @@ import javax.persistence.Table;
 @Table(name = "books")
 public class Book {
 	@Id
+	@Column(name = "book_id")
 	private String bookId;
 	private String name;
 	private String author;
+	@Column(name = "is_ready")
 	private Boolean isReady;
 	
 	public String getBookId() {
